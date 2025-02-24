@@ -199,6 +199,17 @@
                 margin-top: 55px;
             }
         }
+
+        .descarga {
+    background-color: rgb(0, 140, 255);
+    margin: 10px auto;
+    width: 100%;
+}
+
+/* Color diferente para el botón de importar */
+.descarga:nth-of-type(2) {
+    background-color: #4CAF50; 
+}
     </style>
 </head>
 
@@ -253,6 +264,9 @@
                 <button type="submit">Agregar Cuenta</button>
             </form>
             <button class="descarga" onclick="downloadAccounts()">Descargar Cuentas</button>
+            <!-- Dentro de .form-container, después del botón de descarga -->
+<button class="descarga" onclick="document.getElementById('fileInput').click()">Importar desde Excel</button>
+<input type="file" id="fileInput" accept=".xlsx, .xls" hidden>
         </div>
 
         <div class="accounts-container">
@@ -293,6 +307,42 @@
 
             this.reset();
         });
+
+        // Función para importar datos desde Excel
+document.getElementById('fileInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        // Mapear datos del Excel al formato de cuenta
+        const importedAccounts = jsonData.map(item => ({
+            cliente: item['Cliente'] || '',
+            service: item['Servicio'] || '',
+            correo: item['Correo Electrónico'] || '',
+            pass: item['Contraseña'] || '',
+            purchaseDate: item['Fecha de Inicio'] || '',
+            expiryDate: item['Fecha de Vencimiento'] || '',
+            contactNumber: item['Número de Contacto'] || '',
+            perfil: item['Perfil'] || '',
+            pin: item['Pin'] || '',
+            price: item['Precio'] || ''
+        }));
+
+        // Fusionar con cuentas existentes y guardar
+        accounts = [...accounts, ...importedAccounts];
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+        displayAccounts();
+        alert(`${importedAccounts.length} cuentas importadas con éxito!`);
+    };
+    reader.readAsArrayBuffer(file);
+});
 
         function addAccount(cliente, service, purchaseDate, expiryDate, contactNumber, perfil, pin, price, correo, pass) {
             let account = {
