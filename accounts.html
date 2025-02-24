@@ -126,6 +126,17 @@
             background-color: #075ca1;
         }
 
+        .whatsapp-button {
+            background-color: #e9972c;
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #b33620;
+        }
+
         .accounts-list {
             margin-top: 20px;
             border-top: 1px solid #ccc;
@@ -238,17 +249,7 @@
                 <label for="pin">Pin:</label>
                 <input type="text" id="pin" name="pin" required placeholder="Ingrese Pin">
                 <label for="price">Lista de Precios (MXN):</label>
-                <select id="price" name="price" required>
-                    <option value="">Selecciona costo</option>
-                    <option value="60">$60</option>
-                    <option value="70">$70</option>
-                    <option value="80">$80</option>
-                    <option value="90">$90</option>
-                    <option value="100">$100</option>
-                    <option value="110">$110</option>
-                    <option value="120">$120</option>
-                    <option value="130">$130</option>
-                </select>
+                <input type="number" id="price" name="price" required placeholder="Ingrese Precio">
                 <button type="submit">Agregar Cuenta</button>
             </form>
             <button class="descarga" onclick="downloadAccounts()">Descargar Cuentas</button>
@@ -325,6 +326,10 @@
                 let accountItem = document.createElement('div');
                 accountItem.classList.add('account-item');
                 let daysLeft = getDaysLeft(account.expiryDate);
+                let whatsappButtonHTML = '';
+                if (daysLeft <= 2) {
+                    whatsappButtonHTML = `<button class="whatsapp-button" onclick="sendWhatsApp(${index})">Enviar WhatsApp</button>`;
+                }
                 accountItem.innerHTML = `
                     <strong>Nombre de cliente:</strong> ${account.cliente} <br>
                     <strong>Servicio:</strong> ${account.service} <br>
@@ -339,6 +344,7 @@
                     <button class="copy-button" onclick="copyAccount(${index})">Copiar Cuenta</button>
                     <button class="update-button" onclick="updateAccount(${index})">Actualizar Cuenta</button>
                     <button class="delete-button" onclick="deleteAccount(${index})">Eliminar</button>
+                    ${whatsappButtonHTML}
                     <div class="days-left">Días restantes: ${daysLeft}</div>
                 `;
                 accountsList.appendChild(accountItem);
@@ -399,6 +405,29 @@
             // Guardar en localStorage y actualizar la vista
             localStorage.setItem('accounts', JSON.stringify(accounts));
             displayAccounts();
+        }
+
+        function sendWhatsApp(index) {
+            let account = accounts[index];
+            let message = `
+            
+Hola estimado/a ${account.cliente}👤:
+
+Esperamos que estes disfrutando de tu suscripción a ${account.service}☺️.
+
+📅Nos dirigimos a ti para recordarte que tu suscripción está próxima a vencer o ya vencio. Para evitar la interrupción del servicio y seguir disfrutando de todos los beneficios que ofrecemos, te invitamos a renovar tu suscripción.
+
+✅Inicio: ${account.purchaseDate}
+❌Vence: ${account.expiryDate}
+
+Si desea proceder con la renovación, por favor, respondenos en este chat✅.
+
+Atentamente,
+
+@SoyRaúlRuizOficial
+`;
+            let whatsappUrl = `https://api.whatsapp.com/send?phone=${account.contactNumber}&text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         function downloadAccounts() {

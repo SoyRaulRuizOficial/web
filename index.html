@@ -1,1 +1,22 @@
-<h1>Hola amigos streamers</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="whatsappButton">Contactar por WhatsApp</button>
+
+</body>
+<script>
+    document.getElementById('whatsappButton').addEventListener('click', function() {
+      const phoneNumber = '4493753355'; // Número de teléfono de destino con el código de país (sin el "+")
+      const message = 'Hola, te recordamos que tu suscripción está a punto de expirar. ¡Renueva ahora para no perder el acceso!'; // Mensaje personalizado
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+  
+      window.open(whatsappUrl, '_blank');
+    });
+  </script>
+  
+</html>
