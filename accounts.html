@@ -96,20 +96,19 @@
 
         .delete-button {
             background-color: red;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-right: 5px;
+            font-size: 13px;
+            padding: 10px 15px;
+           
         }
 
         .delete-button:hover {
-            background-color: darkred;
+            background-color: rgb(148, 11, 11);
         }
 
         .copy-button {
             background-color: #159e53;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-right: 5px;
+            padding: 10px 12px;
+            font-size: 13px;          
         }
 
         .copy-button:hover {
@@ -118,8 +117,9 @@
 
         .update-button {
             background-color: #0b7dda;
-            padding: 5px 10px;
-            font-size: 12px;
+            padding: 10px 15px;
+            font-size: 13px;            
+           
         }
 
         .update-button:hover {
@@ -127,14 +127,14 @@
         }
 
         .whatsapp-button {
-            background-color: #e9972c;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-top: 5px;
+            background-color: #e9972d;
+            font-size: 13px;
+            padding: 10px 15px;
+          
         }
 
         .whatsapp-button:hover {
-            background-color: #b33620;
+            background-color: #bd7415;
         }
 
         .accounts-list {
@@ -248,7 +248,7 @@
                 <input type="text" id="perfil" name="perfil" required placeholder="Ingrese Perfil">
                 <label for="pin">Pin:</label>
                 <input type="text" id="pin" name="pin" required placeholder="Ingrese Pin">
-                <label for="price">Costo (MXN):</label>
+                <label for="price">Lista de Precios (MXN):</label>
                 <input type="number" id="price" name="price" required placeholder="Ingrese Precio">
                 <button type="submit">Agregar Cuenta</button>
             </form>
@@ -328,7 +328,7 @@
                 let daysLeft = getDaysLeft(account.expiryDate);
                 let whatsappButtonHTML = '';
                 if (daysLeft <= 2) {
-                    whatsappButtonHTML = `<button class="whatsapp-button" onclick="sendWhatsApp(${index})">Enviar WhatsApp</button>`;
+                    whatsappButtonHTML = `<button class="whatsapp-button" onclick="sendWhatsApp(${index})">Notificar{⚠️}</button>`;
                 }
                 accountItem.innerHTML = `
                     <strong>Nombre de cliente:</strong> ${account.cliente} <br>
@@ -341,9 +341,10 @@
                     <strong>Fecha de vencimiento:</strong> ${account.expiryDate} <br>
                     <strong>Número de contacto:</strong> ${account.contactNumber} <br>
                     <strong>Precio:</strong> $${account.price} <br>
-                    <button class="copy-button" onclick="copyAccount(${index})">Copiar Cuenta</button>
-                    <button class="update-button" onclick="updateAccount(${index})">Actualizar Cuenta</button>
-                    <button class="delete-button" onclick="deleteAccount(${index})">Eliminar</button>
+                    <button class="copy-button" onclick="sendAccount(${index})">Enviar {✉️}</button>
+                    <button class="copy-button" onclick="copyAccount(${index})">Copiar {📝}</button>
+                    <button class="update-button" onclick="updateAccount(${index})">Actualizar {♻️}</button>
+                    <button class="delete-button" onclick="deleteAccount(${index})">Eliminar {⛔}</button>
                     ${whatsappButtonHTML}
                     <div class="days-left">Días restantes: ${daysLeft}</div>
                 `;
@@ -362,12 +363,52 @@
         function copyAccount(index) {
             let account = accounts[index];
             let daysLeft = getDaysLeft(account.expiryDate);
-            let copyText = `✅${account.service}✅\n\n👤Cliente: ${account.cliente}\n📩Correo: ${account.correo}\n🔐Contraseña: ${account.pass}\n👤Perfil: ${account.perfil}\n🔑Pin: ${account.pin}\n✅Inicio: ${account.purchaseDate}\n❌Vence: ${account.expiryDate}\n#️⃣N° cliente: ${account.contactNumber}\n💵Precio: $${account.price}\n📆Días restantes: ${daysLeft}\n\n@SoyRaulRuizOficial\n📲Whastapp: 4494516970`;
+
+
+            let copyText = `
+> ✅ *${account.service}* ✅
+> 👤 *Cliente:* _${account.cliente}_
+> 📩 *Correo:* _${account.correo}_
+> 🔐 *Contraseña:* _${account.pass}_
+> 👤 *Perfil:* _${account.perfil}_
+> 🔑 *Pin:* _${account.pin}_
+> ✅ *Inicio:* _${account.purchaseDate}_
+> ❌ *Vence:* _${account.expiryDate}_
+> #️⃣ *N° cliente:* _${account.contactNumber}_
+> 💵 *Precio:* _${account.price}_
+> 📆 *Días restantes:* _${daysLeft}_
+-------------------------------------
+> _*Métodos de pago 💵💲💰*_
+> *LEER Y ESCRIBIR BIEN*
+> _Deposito por OXXO:_
+> *2242 1700 1001 8022*
+> _Transferencia interbancaria:_
+> _Clabe:_
+> *728969000032102276*
+> _Nombre:_ *Raúl Ruiz*
+> _Banco:_ *Spin by OXXO*
+> _Concepto:_ *Prestamo*
+> _Cantidad:_ *${account.price}*
+
+> _Para cualquier duda o aclaración, puedes contactarme a través de WhatsApp haciendo clic en el siguiente enlace:_
+> https://api.whatsapp.com/send?phone=5214494516970
+
+> _*@SoyRaulRuizOficial*_`;
+
+
             navigator.clipboard.writeText(copyText).then(function () {
                 alert('La cuenta ha sido copiada al portapapeles.');
             }, function (err) {
                 console.error('No se pudo copiar la cuenta: ', err);
             });
+        }
+        function deleteAccount(index) {
+            let confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta cuenta?");
+            if (confirmDelete) {
+                accounts.splice(index, 1);
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                displayAccounts();
+            }
         }
 
         function updateAccount(index) {
@@ -407,28 +448,69 @@
             displayAccounts();
         }
 
+
+
         function sendWhatsApp(index) {
             let account = accounts[index];
-            let message = `
-            
-Hola estimado/a ${account.cliente}👤:
-
-Esperamos que estes disfrutando de tu suscripción a ${account.service}☺️.
-
-📅Nos dirigimos a ti para recordarte que tu suscripción está próxima a vencer o ya vencio. Para evitar la interrupción del servicio y seguir disfrutando de todos los beneficios que ofrecemos, te invitamos a renovar tu suscripción.
-
-✅Inicio: ${account.purchaseDate}
-❌Vence: ${account.expiryDate}
-
-Si desea proceder con la renovación, por favor, respondenos en este chat✅.
-
-Atentamente,
-
-@SoyRaúlRuizOficial
-`;
+            let message = 
+`
+> Hola estimado/a ${account.cliente}👤:
+> Esperamos que estes disfrutando
+> de tu suscripción a ${account.service}☺️.
+> 📅Nos dirigimos a ti para recordarte
+> que tu suscripción está próxima
+> a vencer o ya venció.
+> Para evitar la interrupción
+> del servicio y seguir disfrutando
+> de todos los beneficios que ofrecemos,
+> te invitamos a renovar tu suscripción.
+> ✅Inicio: ${account.purchaseDate}
+> ❌Vence: ${account.expiryDate}
+> Si desea proceder con la renovación, 
+> por favor, respondenos en este chat.
+> Atentamente,
+> @SoyRaúlRuizOficial`;
             let whatsappUrl = `https://api.whatsapp.com/send?phone=${account.contactNumber}&text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        function sendAccount(index) {
+            let account = accounts[index];
+            let daysLeft = getDaysLeft(account.expiryDate);
+            let message = `
+> ✅ *${account.service}* ✅
+> 👤 *Cliente:* _${account.cliente}_
+> 📩 *Correo:* _${account.correo}_
+> 🔐 *Contraseña:* _${account.pass}_
+> 👤 *Perfil:* _${account.perfil}_
+> 🔑 *Pin:* _${account.pin}_
+> ✅ *Inicio:* _${account.purchaseDate}_
+> ❌ *Vence:* _${account.expiryDate}_
+> #️⃣ *N° cliente:* _${account.contactNumber}_
+> 💵 *Precio:* _$${account.price}_
+> 📆 *Días restantes:* _${daysLeft}_
+-------------------------------------
+> _*Métodos de pago 💵💲💰*_
+> *LEER Y ESCRIBIR BIEN*
+> _Deposito por OXXO:_
+> *2242 1700 1001 8022*
+> _Transferencia interbancaria:_
+> _Clabe:_
+> *728969000032102276*
+> _Nombre:_ *Raúl Ruiz*
+> _Banco:_ *Spin by OXXO*
+> _Concepto:_ *Prestamo*
+> _Cantidad:_ *$${account.price}*
+
+> _Para cualquier duda o aclaración, puedes contactarme a través de WhatsApp haciendo clic en el siguiente enlace:_
+> https://api.whatsapp.com/send?phone=5214494516970
+
+> _*@SoyRaulRuizOficial*_`;
+            let whatsappUrl = `https://api.whatsapp.com/send?phone=${account.contactNumber}&text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+
 
         function downloadAccounts() {
             // Crear una estructura de datos compatible con xlsx
