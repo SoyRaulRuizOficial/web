@@ -377,7 +377,7 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
                 accountItem.classList.add('account-item');
                 let daysLeft = getDaysLeft(account.expiryDate);
                 let whatsappButtonHTML = '';
-                if (daysLeft <= 2) {
+                if (daysLeft <= 3) {
                     whatsappButtonHTML = `<button class="whatsapp-button" onclick="sendWhatsApp(${index})">Notificar{⚠️}</button>`;
                 }
                 accountItem.innerHTML = `
