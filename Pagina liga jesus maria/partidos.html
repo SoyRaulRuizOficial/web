@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&display=swap"
+        rel="stylesheet">
+    <title>Liga Jesus Maria</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav {
+            background: #000;
+            color: white;
+            width: 100%;
+            height: 8vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+
+
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            font-family: "Big Shoulders Inline", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: weight;
+            font-style: normal;
+        }
+
+        .logo img {
+            margin: 10px 5px auto 0%;
+            height: 4%;
+            width: 4%;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            margin-right: 20px;
+            font-family: "Big Shoulders Inline", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: weight;
+            font-style: normal;
+        }
+
+        .nav-links a {
+            font-size: 10px;
+
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00bfff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background: #242424;
+            padding: 1rem;
+
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .mobile-menu.open {
+                display: flex;
+
+            }
+
+            a {
+                text-decoration: none;
+                color: #ffffff
+            }
+
+            a:hover {
+                color: #00bfff;
+            }
+
+            .logo img {
+                margin: auto 40%;
+                margin-top: 20%;
+                height: 30%;
+                width: 30%;
+                border-radius: 50%;
+            }
+
+            h1 {
+                display: none;
+            }
+
+            nav {
+                position: inherit;
+            }
+        }
+
+
+        .main-container {
+            text-align: center;
+            padding: 2rem;
+            font-size: 10px;
+        }
+
+        .circle-frame {
+            border: 10px solid #fff;
+            border-radius: 50%;
+            display: inline-block;
+            padding: 2rem;
+            box-shadow: 0 0 50px #fff;
+        }
+
+        .contenido {
+            margin:0px auto;
+            margin-top: 3%;
+            width: 90%;
+            height: 10vh;
+            /* background-color: rgb(92, 91, 91); */
+            display: inline-flex;
+            font-family: "Big Shoulders Inline", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: weight;
+            font-style: normal;
+
+        }
+
+        .tagPartido {
+            display: flex;
+            width: 45%;
+            height: 13vh;
+            margin: auto;
+            margin-top: 0%;
+            border-radius: 3px;
+            background: #2B2B2B;
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .equipo1 {
+            width: 85%;
+            display: flex;
+            /* background-color: red; */
+            align-items: center;
+
+        }
+
+        .equipo2 {
+            width: 85%;
+            display: flex;
+            /* background-color: blue; */
+            align-items: center;
+        }
+
+        .logo-equipo img {
+            display: flex;
+            width: 25px;
+            height: 25px;
+            align-items: center;
+        }
+
+        span.marcador {
+            display: flex;
+            color: rgb(253, 253, 253);
+            margin-inline-start: auto;
+ 
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+
+            <img src="/img/271604141_4625845434166791_7710036243604600757_n.jpg" alt="Liga Jesus Maria Logo" />
+
+            <a href="index.html" style="text-decoration: none; color: #fff;">
+                <h1>Liga Jesús Maria</h1>
+            </a>
+        </div>
+
+
+        <div class="nav-links">
+            <a href="partidos.html">Partidos</a>
+            <a href="#equipos">Equipos</a>
+            <a href="#categorias">Categorías</a>
+        </div>
+        <button class="menu-btn" id="menu-btn">☰</button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#partidos">Partidos</a>
+        <a href="#equipos">Equipos</a>
+        <a href="#categorias">Categorías</a>
+    </div>
+
+    <main class="main-container">
+        <h1 style="margin-top: 50px;">Ultimos Partidos (4tos)</h1>
+
+        <div class="contenido">
+      
+            <div class="tagPartido">
+
+
+
+
+                <div class="equipo1">
+                    <div class="logo-equipo">
+
+                        <img src="/img/WhatsApp Image 2025-03-18 at 7.22.49 PM.png" alt="" ;">
+
+                    </div>
+                    <p>San Miguel FC</p>
+                    <span class="marcador">5</span>
+
+                  
+                </div>
+
+
+
+
+                <div class="equipo2">
+                    <div class="logo-equipo">
+
+                        <img src="/img/WhatsApp Image 2025-03-18 at 7.24.18 PM.png" alt="" ;">
+
+                    </div>
+                    <p>Cosmos</p>
+                    <span class="marcador">2</span>
+                  
+                </div>
+
+            </div>
+            
+
+
+                
+            <div class="tagPartido">
+
+
+
+
+                <div class="equipo1">
+                    <div class="logo-equipo">
+
+                        <img src="/img/WhatsApp Image 2025-03-18 at 10.23.44 PM.jpeg" alt="" ;">
+
+                    </div>
+                    <p>Toros FC</p>
+                    <span class="marcador">4</span>
+                </div>
+
+
+
+
+                <div class="equipo2">
+                    <div class="logo-equipo">
+
+                        <img src="/img/142573690_106348768134692_8861867659428073098_n.png" alt="" ;">
+
+                    </div>
+                    <p>Deportivo Galicia</p>
+                    <span class="marcador">2</span>
+                </div>
+
+            </div>
+           
+        </div>
+
+        <div class="contenido">
+        <div class="tagPartido">
+
+
+
+
+            <div class="equipo1">
+                <div class="logo-equipo">
+
+                  
+                    <img src="/img/WhatsApp Image 2025-03-18 at 10.32.55 PM.jpeg" alt="" ;">
+
+                </div>
+                <p>Paso Blanco FC</p>
+                <span class="marcador">5</span>
+            </div>
+
+
+
+
+            <div class="equipo2">
+                <div class="logo-equipo">
+
+                    
+                    <img src="/img/WhatsApp Image 2025-03-18 at 10.32.32 PM.jpeg" alt="" ;">
+                </div>
+                <p>Hemorroides Del Mal</p>
+                <span class="marcador">5</span>
+            </div>
+
+        </div>
+        <div class="tagPartido">
+
+
+
+
+            <div class="equipo1">
+                <div class="logo-equipo">
+
+                    <img src="/img/maravillas.png" alt="" ;">
+
+                </div>
+                <p>Maravillas FC</p>
+                <span class="marcador">7</span>
+            </div>
+
+
+
+
+            <div class="equipo2">
+                <div class="logo-equipo">
+
+                    <img src="/img/miravalle.png" alt="" ;">
+
+                </div>
+                <p>Leones De Miravalle</p>
+                <span class="marcador">4</span>
+            </div>
+
+        </div>
+    </div>
+    
+        <section style="margin-top: 100px;">
+            <h3>NOTICIAS RELEVANTES</h3>
+    
+          
+            <h4>
+              ¿Cruz Azul le ha arrebatado un bombazo recientemente a Chivas?
+            </h5>
+    
+            <p>
+              Chivas es un equipo que ha querido recuperar el protagonismo en los últimos torneos de la Liga MX, aunque los
+              mexicanos que suele desear también son del interés de otros equipos y no sería la primera vez que Cruz Azul
+              suele arrebatarle un fichaje. Aquí te contamos todos los detalles.
+    
+              Luis Chávez apuntaría a volver a la Liga MX y ya hay un principal interesado
+            </p>
+    
+            <p>
+              video te puede interesar.
+              Era bien sabido que el equipo de Verde Valle deseaba reforzar su mediocampo. Una de las opciones más viables
+              era Luis Chávez, quién deseaba regresar de Rusia con la intención de estar cerca de la familia en México y la
+              Liga MX. A pesar de ello, todo parece indicar que el surgido en la Bella Airosa regresará a México. Sin
+              embargo, lo hará lejos de Guadalajara.
+            </p>
+    
+    
+            <p>
+              Cruz Azul es el equipo que se ha perfilado como el principal interesado para concretar la llegada de Luis
+              Chávez en su regreso a la Liga MX. “Cruz Azul ya estaría sondeando el fichaje de Luis Chávez, mediocampista
+              mexicano con pasado en Pachuca y que se encuentra jugando con el Dinamo Moscú, de la Premier League de Rusia.”
+              Comentó la fuente mediante su sitio web. Sin embargo, no sería la primera vez que los de la Noria ya han
+              arrebatado bombazos al equipo de Verde Valle.
+            </p>
+    
+            <p>
+              ¿Cruz Azul le ha arrebatado un bombazo recientemente a Chivas?
+              Dos de los equipos más mencionados en el pasado mercado de fichajes fueron Cruz Azul y Chivas. Debido al tema
+              de Jesús Chiquete Orozco, jugador que deseaba dejar las filas del equipo de Verde Valle. Al final, entre
+              polémicas, pudo llegar a la Noria y Luis Romo se convirtió en nuevo jugador del Guadalajara.
+    
+              A pesar de ello, el aliciente tuvo un tema más debido a Luka Romero, quién dio la negativa a las Chivas para
+              jugar como Rojiblanco, mientras que con los Cementeros finalmente se ha cerrado la negociación. Pero esto ha
+              sido una cuestión de representantes y directivos, mismos que han estado inmiscuidos en la negociación por el
+              jugador nacido en Durango.
+            </p>
+    
+    
+    
+            <p>
+              No sería la primera vez que Cruz Azul le arrebata un bombazo a Chivas 0
+              Dicha situación generó molestias en Verde Valle, debido al deseo que tenían de hacerse con el nacido en
+              Durango. Ahora unos meses después pueden volver a sufrir un robo, tal es el caso de Luis Chávez, quién todo
+              parece indicar regresará a la Liga MX.
+            </p>
+    
+            <img src="/img/GlVA0S0WAAAXLJ_.jpg" alt="" width="700px" height="400px">
+          </section>
+        
+
+        
+
+    </main>
+    
+    
+
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+        });
+    </script>
+</body>
+
+</html>
